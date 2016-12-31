@@ -1,6 +1,8 @@
 # GMS
 GSuite Management System
 
+PLEASE NOTE THE CURRENT CODE IS NOT FUNCTIONING.  WE WILL HAVE THE FULLY FUNCTIONING CODE IN PLACE IN ABOUT A WEEK OR SO.  
+This readme will reflect that update and changes
 
 # Donation Button
 
