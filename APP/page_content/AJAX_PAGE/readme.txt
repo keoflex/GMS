@@ -1,0 +1,1 @@
+This section is used for dynamic AJAX calls to php files.  Store php files in this folder
