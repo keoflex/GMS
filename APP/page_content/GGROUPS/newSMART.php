@@ -36,31 +36,84 @@ GSuite Management System
         </div>
         <div class="panel-body">
           <div class="form-group">
-            <form action="./?P=<?php echo $_GET['P']; ?>" method="post" enctype="multipart/form-data">
-              <input type="hidden" id="post_type" name="post_type" value="<?php echo pg_encrypt("qryUSER-new_qry",$pg_encrypt_key,"encode") ?>" />
-              <label>Groups Name</label>
-              <input name="first_name" type="text" value="" class="form-control">
-              <label>Groups Email</label>
-              <input name="last_name" type="text" value="" class="form-control">
-              
-              <hr>
-        
-		<h2>Search Query</h2>       
-   <div id="builder-basic"></div>
+				<form action="./?P=<?php echo $_GET['P']; ?>" method="post" enctype="multipart/form-data">
+				  <input type="hidden" id="post_type" name="post_type" value="<?php echo pg_encrypt("qrySMARTGROUP-newGROUP_qry",$pg_encrypt_key,"encode") ?>" />
+				  <div class="form-group">
+						<div class="row">
+							 <label class="col-md-2 control-label">Name</label>
+							<div class="col-md-5">
+								 <input name="name" type="text" value="" class="form-control" required>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
 
-    <div class="btn-group">
-    <button type="submit" class="btn btn-success">CREATE USER</button>      
-    <button class="btn btn-warning reset" data-target="basic">Reset</button>
+				  <!-- <div class="form-group">
+						<div class="row">
+							 <label class="col-md-2 control-label">Google Domain</label>
+							<div class="col-md-5">
+								<select style="width: 100%" name="google_domain_id" id="google_domain_id" class="form-control">
+										<option value="0">Select one</option>
+											<option value="101" selected="selected">dumasisd.org</option>
+											<option value="102">disd.me</option>
+										</select>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+ -->
+				 <div class="form-group">
+					<div class="row">
+						 <label class="col-md-2 control-label">Smart Group Email</label>
+						<div class="col-md-5">
+							<input name="email" type="text" value="" email class="form-control">
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
 
-     <!--
-      <button class="btn btn-success set-json" data-target="basic">Set rules</button>
-      <button class="btn btn-primary parse-json" data-target="basic">Get rules</button>
-      -->
-    </div>
+				 <div class="form-group">
+					<div class="row">
+						 <label class="col-md-2 control-label">Smart Group Description</label>
+						<div class="col-md-5">
+							<input name="description" type="text" value="" class="form-control">
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
 
-              
+				<div class="form-group">
+					<div class="row">
+						 <label class="col-md-2 control-label">Google Group ID</label>(Leave blank if you want to create it in Google now)
+						<div class="col-md-5">
+							<input name="google_group_id" type="text" value="" class="form-control">
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
 
-         </form>
+			<h4>Smart Group Pattern Condition</h4>
+				 <div id="builder"></div>
+				 <div class="btn-group">
+							  <button class="btn btn-primary parse-json" data-stmt="false" type="button">View Json</button>
+				</div>
+				<!-- For reference and review sql statement -->
+					<div id="result" class="hide">
+					  <h3>Output</h3>
+					  <pre></pre>
+					</div>
+				<input type="text" id="pattern_condition" name="pattern_condition">
+
+
+				<div class="form-group mt20">
+					<div class="col-md-offset-2 col-md-6">
+						<button type="submit" id="submit" class="btn btn-success">CREATE SMART GROUP</button>
+						<button class="btn btn-warning reset" type="reset" value="Reset">Reset</button>
+					</div>
+				</div>
+
+
+			 </form>
             <hr>
           </div>
         </div>
@@ -68,10 +121,8 @@ GSuite Management System
     </div>
   </div>
 </section>
-   
 
 
- 
 
 
 
@@ -79,6 +130,85 @@ GSuite Management System
 <script src="./js/bootstrap.min.js"></script>
 <script src="./ASSETS/querybuilder/js/query-builder.standalone.min.js"></script>
 <script src="./ASSETS/querybuilder/js/basic.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	var rules_basic = {
+	};
 
+$('#builder').queryBuilder({
+  plugins: ['bt-tooltip-errors'],
+
+  filters: [{
+    id: 'email_value',
+    label: 'Email',
+    type: 'string',
+	operators: ['begins_with','ends_with','contains','equal', 'not_equal']
+  }, {
+    id: 'employee_type',
+    label: 'Employee Type',
+     type: 'string',
+    operators: ['begins_with','ends_with','contains','equal', 'not_equal']
+  },
+  {
+    id: 'department',
+    label: 'Department',
+    type: 'string',
+	operators: ['begins_with','ends_with','contains','equal', 'not_equal']
+  },{
+    id: 'manager_email',
+    label: 'Manager Email',
+   type: 'string',
+	operators: ['begins_with','ends_with','contains','equal', 'not_equal']
+  }, {
+    id: 'employee_title',
+    label: 'Emplyee Title',
+   type: 'string',
+	operators: ['begins_with','ends_with','contains','equal', 'not_equal']
+  }],
+
+ // rules: rules_basic
+});
+
+$('#btn-reset').on('click', function() {
+  $('#builder-basic').queryBuilder('reset');
+});
+
+// reset builder
+$('.reset').on('click', function() {
+  $('#builder').queryBuilder('reset');
+  $('#result').addClass('hide').find('pre').empty();
+});
+
+// get rules
+$('.parse-json').on('click', function() {
+  $('#result').removeClass('hide')
+    .find('pre').html(JSON.stringify(
+      $('#builder').queryBuilder('getRules', {get_flags: true}),
+      undefined, 2
+    ));
+});
+
+$('.parse-sql').on('click', function() {
+  var res = $('#builder').queryBuilder( 'getSQL', false, true);
+  $('#result').removeClass('hide')
+    .find('pre').html(
+      res.sql + (res.params ? '\n\n' + JSON.stringify(res.params, undefined, 2) : '')
+    );
+});
+
+
+$('#submit').on('click', function() {
+   //var res = $('#builder').queryBuilder('getSQL', $(this).data('stmt'), false);
+   //var sql=res.sql;
+   var res =  $('#builder').queryBuilder('getRules',{get_flags: true});
+   if($.isEmptyObject(res)){
+	alert("Problem in pattern type selection");
+	return false;
+   }
+   var json_string = JSON.stringify(res);
+   $('#pattern_condition').val(json_string);
+});
+});
+    </script>
 
 
