@@ -51,6 +51,9 @@ date_default_timezone_set('America/Chicago');
 
 	include "dbcon/config_sqli.php";
 	include "dbcon/php_functions.php";
+include "vendor/google/src/Google/autoload.php";
+include "lib/google.php";
+
 
 
 

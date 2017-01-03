@@ -19,10 +19,12 @@ GSuite Management System
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ************************************/
 
+error_reporting(E_ALL ^ E_NOTICE);
+
 $DB_host = 'localhost'; // mysql host
-$DB_login = "databaseusername"; // mysql login
-$DB_password = "databasePassword"; // mysql password
-$DB_database = "Databasename"; // the database which can be used by the script.
+$DB_login = "gms_dev"; // mysql login
+$DB_password = "gms_dev!"; // mysql password
+$DB_database = "gms_dev"; // the database which can be used by the script.
 //loginSeed
 //this see is used to add to all passwords
 //This is used to see passwords encrypted with sha1().  Simply helps to further encrypt passwords.
