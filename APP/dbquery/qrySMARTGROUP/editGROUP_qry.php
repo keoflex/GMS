@@ -30,8 +30,9 @@ $GRP_name =$conn->real_escape_string($_POST['name']);
 $GRP_email = $conn->real_escape_string($_POST['email']);
 $GRP_description = $conn->real_escape_string($_POST['description']);
 $GRP_google_group_id = $conn->real_escape_string($_POST['google_group_id']);
+$GRP_google_domain_id = $conn->real_escape_string($_POST['google_domain_id']);
 $GRP_pattern = $conn->real_escape_string($_POST['pattern_condition']);
-
+$updated_at = date('Y-m-d H:i:s');
 if($GRP_name){
 
 		//update smart group info
@@ -39,7 +40,9 @@ if($GRP_name){
 		name = '".$GRP_name."',
 		email = '".$GRP_email."',
 		description = '".$GRP_description."',
+		google_domain_id = '".$GRP_google_domain_id."',
 		google_group_id = '".$GRP_google_group_id."',
+		updated_at = '".$updated_at."',
 		pattern_condition = '".$GRP_pattern."'
 		where id = ".$GRP_id_posted;
 

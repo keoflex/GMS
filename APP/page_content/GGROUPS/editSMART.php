@@ -25,11 +25,20 @@ if(isset($_POST['smart_group_id'])){
 	//get smart group info
 	$get_group = "select * from smart_groups where id = ".$GRP_id_edit;
 	$get_group_res = mysqltng_query($get_group);
+    $GRP_google_domain_id = mysqltng_result($get_group_res,0,"google_domain_id");
 	$GRP_name = mysqltng_result($get_group_res,0,"name");
 	$GRP_email = mysqltng_result($get_group_res,0,"email");
 	$GRP_description = mysqltng_result($get_group_res,0,"description");
 	$GRP_group_id = mysqltng_result($get_group_res,0,"google_group_id");
 	$GRP_pattern = mysqltng_result($get_group_res,0,"pattern_condition");
+
+	$domain_query = "SELECT * FROM google_domains";
+	$result = mysqltng_query($domain_query);
+	$domains = array();
+	for($i=0;$i<mysqltng_num_rows($result);$i++){
+	   $data = mysqltng_fetch_assoc($result);
+	   $domains[] = array("name"=> $data['name'], "id" => $data['id']);
+	   }
 ?>
 <section>
   <h1>Edit Smart Group</h1>
@@ -55,6 +64,27 @@ if(isset($_POST['smart_group_id'])){
 							 <label class="col-md-2 control-label">Name</label>
 							<div class="col-md-5">
 								 <input name="name" type="text" value="<?php echo $GRP_name; ?>" class="form-control" required>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+						    <div class="form-group">
+						<div class="row">
+							 <label class="col-md-2 control-label">Google Domain</label>
+							<div class="col-md-5">
+							<select style="width: 100%" name="google_domain_id" id="google_domain_id" class="form-control">
+								<?php
+								foreach ($domains as $domain) {
+								   $domain_name=$domain['name'];
+								   $domain_id=$domain['id'];
+								   $selected="";
+								   if($GRP_google_domain_id==$domain_id){
+									   $selected="SELECTED";
+								   }
+									echo "<option value=$domain_id $selected>$domain_name</option>";
+								}
+								?>
+								</select>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -138,7 +168,6 @@ if(isset($_POST['smart_group_id'])){
 ?>
 <h1>No smart group was selected</h1>
 <?php
-
 }
 ?>
 <link href="./ASSETS/querybuilder/css/query-builder.default.min.css" rel="stylesheet">

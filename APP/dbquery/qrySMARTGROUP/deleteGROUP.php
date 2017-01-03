@@ -25,13 +25,14 @@ $element_function = "Deleted";
 
 
 
-$GRP_id = $conn->real_escape_string(pg_encrypt($_POST['group_id'],$pg_encrypt_key,"decode"));
+$GRP_id = $conn->real_escape_string(pg_encrypt($_POST['smart_group_id'],$pg_encrypt_key,"decode"));
 $GRP_id = str_replace($general_seed,'',$GRP_id);
 
 	//form query
 	$qry = "DELETE from smart_groups where id = ".$GRP_id;
 
-	///echo $qry;
+
+
 
 
 	$QUERY_PROCESS = mysqltng_query($qry);

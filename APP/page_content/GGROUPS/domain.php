@@ -20,21 +20,17 @@ GSuite Management System
 ************************************/
 
 ?>
-
 		<section>
-			<h1>GOOGLE Smart Groups</h1>
-
-			<a class="btn btn-success"  href="./index.php?P=<?php echo pg_encrypt("GGROUPS-newSMART",$pg_encrypt_key,"encode") ?>">Create Smart Group</a>
+			<h1>GOOGLE Domains</h1>
+			<a class="btn btn-success"  href="./index.php?P=<?php echo pg_encrypt("GGROUPS-newDOMAIN",$pg_encrypt_key,"encode") ?>">Create Google Domain</a>
 			<HR>
 			<div class="info">
 				<p>&nbsp;</p>
 			</div>
-			<table id="matrixDT" class="display" cellspacing="0" width="100%">
+			<table id="domain_list" class="display" cellspacing="0" width="100%">
 				<?php
 				$th_fields = "
 				<th>Name</th>
-				<th>Google Group ID</th>
-				<th>Smart Group Email</th>
 				<th>Action</th>
 				";
 				?>
@@ -51,38 +47,33 @@ GSuite Management System
 				<tbody>
 
                     <?php
-						//call google API\
-						$get_Smart_groups = "SELECT * FROM smart_groups";
-						$SMART_res = mysqltng_query($get_Smart_groups);
+						//get google domains
+						$get_google_domains = "SELECT * FROM google_domains";
+						$domain_res = mysqltng_query($get_google_domains);
 
-						for($i=0;$i<mysqltng_num_rows($SMART_res);$i++){
-							$SMART_array = mysqltng_fetch_assoc($SMART_res);
-							$SMART_name = $SMART_array['name'];
-							$SMART_email = $SMART_array['email'];
-							$SMART_google_group_id = $SMART_array['google_group_id'];
-							$SMART_id = stripcslashes( $SMART_array['id']);
-							$SMART_description = $SMART_array['description'];
+						for($i=0;$i<mysqltng_num_rows($domain_res);$i++){
+							$domain_array = mysqltng_fetch_assoc($domain_res);
+							$domain_name = $domain_array['name'];
+							$domain_id = stripcslashes( $domain_array['id']);
 							?>
                             <tr>
-                                <td><h4><?php echo $SMART_name; ?></h4></td>
-                                <td><h3><?php echo $SMART_google_group_id; ?></h3></td>
-								<td><?php echo $SMART_email; ?></td>
+                                <td><h4><?php echo $domain_name; ?></h4></td>
 								<td>
 								<!-- <a href="#" class="btn btn-primary">Edit</a> -->
-								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-editSMART",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
-                                <input type="hidden" name="smart_group_id" value="<?php echo pg_encrypt($SMART_id,$pg_encrypt_key,"encode"); ?>">
+								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-editDOMAIN",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
+                                <input type="hidden" name="domain_id" value="<?php echo pg_encrypt($domain_id,$pg_encrypt_key,"encode"); ?>">
                                 <input type="submit" class="btn btn-primary" target="new" Value="EDIT">
                                 </form>
-								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-smart",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
-								<input type="hidden" id="post_type" name="post_type" value="<?php echo pg_encrypt("qrySMARTGROUP-deleteGROUP",$pg_encrypt_key,"encode") ?>" />
-								<input type="hidden" name="smart_group_id" value="<?php echo pg_encrypt($SMART_id.$general_seed,$pg_encrypt_key,"encode"); ?>">
+								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-domain",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
+								<input type="hidden" id="post_type" name="post_type" value="<?php echo pg_encrypt("qryDOMAIN-deleteDOMAIN",$pg_encrypt_key,"encode") ?>" />
+								<input type="hidden" name="domain_id" value="<?php echo pg_encrypt($domain_id.$general_seed,$pg_encrypt_key,"encode"); ?>">
 
                                 <input type="submit" id="delete_btn" class="delete_btn btn btn-danger" style="width:100%" Value="DELETE">
                                 </form>
 
 							   </td>
 
-</td>
+							 </td>
 							</tr>
                             <?php
 
@@ -93,6 +84,8 @@ GSuite Management System
 
 <script type="text/javascript">
 $(document).ready(function(){
+$('#domain_list').DataTable();
+
   $(".delete_btn").click(function(){
     if (!confirm("Do you want to delete")){
       return false;

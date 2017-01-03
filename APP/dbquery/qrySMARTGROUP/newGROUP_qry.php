@@ -20,9 +20,9 @@ GSuite Management System
 ************************************/
 
 /*require_once '/vendor/google/src/Google/autoload.php';
-require_once '/google.php';
+require_once 'lib/google.php';
 
-//$keyfile = env("google_service_account_key_file2");
+
 $google = new Google($keyfile);
 
 $results=$google->getGoogleUsers($domain_name,$next);
@@ -39,19 +39,36 @@ $element_function = "Created";
 $GRP_name =$conn->real_escape_string($_POST['name']);
 $GRP_email = $conn->real_escape_string($_POST['email']);
 $GRP_description = $conn->real_escape_string($_POST['description']);
-$GRP_group_id = $conn->real_escape_string($_POST['google_group_id']);
+$GRP_google_group_id = $conn->real_escape_string($_POST['google_group_id']);
+$GRP_google_domain_id = $conn->real_escape_string($_POST['google_domain_id']);
 $GRP_pattern = $conn->real_escape_string($_POST['pattern_condition']);
 $GRP_created_at = date('Y-m-d H:i:s');
 
+if (!$GRP_google_group_id || $GRP_google_group_id=="") {
+	$google = new Google();
+	$email = $GRP_email;
+	$name = $GRP_name;
+	$desc = $GRP_description;
+	$results=$google->addGroup($email, $name, $desc);
+	var_dump($results);
+	$google_group_id = $results->getId();
+	}
+else {
+	$google_group_id = $GRP_google_group_id;
+}
+
 if($GRP_name){
-	$qry = "insert into smart_groups(name, email, description, google_group_id,pattern_condition,created_at) values('".$GRP_name."','".$GRP_email."','".$GRP_description."','".$GRP_group_id."','".$GRP_pattern."','".$GRP_created_at."')";
+	$qry = "insert into smart_groups(name, email, description,google_domain_id,smart,google_group_id,pattern_condition,created_at) values('".$GRP_name."','".$GRP_email."','".$GRP_description."','".$GRP_google_domain_id."','1','".$google_group_id."','".$GRP_pattern."','".$GRP_created_at."')";
 
 	$QUERY_PROCESS = mysqltng_query($qry);
 	//call query process to make sure there are not errors in the query
 	require_once("dbquery/QUERY_PROCESS.php");
+	//Header("Location: ../index.php?p=login&error=You%20are%20not%20logged%20in");    // redirect him to protected.php
+	 //header('Location: ./index.php?P=?'.pg_encrypt("GGROUPS-smart",$pg_encrypt_key,"encode"));
+
 }else{
 
-echo "<h1>Problem in create smart group</h1>";
+	echo "<h1>Problem in create smart group</h1>";
 }
 
 

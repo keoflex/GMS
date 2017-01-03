@@ -19,11 +19,20 @@ GSuite Management System
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ************************************/
 ?>
+<?php
+$domain_query = "SELECT * FROM google_domains";
+$result = mysqltng_query($domain_query);
 
+$domains = array();
+for($i=0;$i<mysqltng_num_rows($result);$i++){
+   $data = mysqltng_fetch_assoc($result);
+   $domains[] = array("name"=> $data['name'], "id" => $data['id']);
+   }
+?>
 
 <section>
   <h1>Create New Smart Group</h1>
-  <a class="btn btn-primary"  href="./?P=<?php echo pg_encrypt("GGROUPS-smart",$pg_encrypt_key,"encode") ?>" />Back to Smart Groups</a>
+  <a class="btn btn-primary"  href="./?P=<?php echo pg_encrypt('GGROUPS-smart',$pg_encrypt_key,"encode") ?>" />Back to Smart Groups</a>
   <hr>
   <div class="info">
     <p>&nbsp;</p>
@@ -32,7 +41,7 @@ GSuite Management System
     <div class="col-lg-12">
       <div class="panel panel-green">
         <div class="panel-heading">
-          <h2 class="panel-title">Smart Group DETAILS</h2>
+          <h2 class="panel-title">Smart Group Details</h2>
         </div>
         <div class="panel-body">
           <div class="form-group">
@@ -48,20 +57,27 @@ GSuite Management System
 						<div class="clearfix"></div>
 					</div>
 
-				  <!-- <div class="form-group">
+				   <div class="form-group">
 						<div class="row">
 							 <label class="col-md-2 control-label">Google Domain</label>
 							<div class="col-md-5">
-								<select style="width: 100%" name="google_domain_id" id="google_domain_id" class="form-control">
-										<option value="0">Select one</option>
-											<option value="101" selected="selected">dumasisd.org</option>
-											<option value="102">disd.me</option>
-										</select>
+							<select style="width: 100%" name="google_domain_id" id="google_domain_id" class="form-control">
+								<?php
+								$i=0;
+								foreach ($domains as $domain) {
+								   $domain_name=$domain['name'];
+								   $domain_id=$domain['id'];
+									if ($i==0) { $selected="SELECTED"; $selected_domain_name=$domain_name; }
+									echo "<option value=$domain_id $selected>$domain_name</option>";
+									$i++;
+								}
+								?>
+								</select>
 							</div>
 						</div>
 						<div class="clearfix"></div>
 					</div>
- -->
+
 				 <div class="form-group">
 					<div class="row">
 						 <label class="col-md-2 control-label">Smart Group Email</label>
@@ -117,7 +133,7 @@ GSuite Management System
 					  <h3>Output</h3>
 					  <pre></pre>
 					</div>
-				<input type="text" id="pattern_condition" name="pattern_condition">
+				<input type="hidden" id="pattern_condition" name="pattern_condition">
 
 
 				<div class="form-group mt20">
