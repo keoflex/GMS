@@ -84,7 +84,12 @@ GSuite Management System
 
 <script type="text/javascript">
 $(document).ready(function(){
-$('#domain_list').DataTable();
+$('#domain_list').dataTable({
+        "iDisplayLength": 100,
+		 "aoColumnDefs": [
+          { 'bSortable': false, 'aTargets': [1] }
+       ]
+    });
 
   $(".delete_btn").click(function(){
     if (!confirm("Do you want to delete")){

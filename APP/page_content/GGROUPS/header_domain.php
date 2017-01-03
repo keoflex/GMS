@@ -22,6 +22,5 @@ CUSTOM HEADER FOR STANDARD GROUPS -->
   	<link rel="stylesheet" type="text/css" href="css/dataTables/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="css/dataTables/demo.css">
 
-
-	<script type="text/javascript" language="javascript" src="js/dataTables/jquery.dataTables.js">
+    <script type="text/javascript" language="javascript" src="js/dataTables/jquery.dataTables.js">
 	</script>

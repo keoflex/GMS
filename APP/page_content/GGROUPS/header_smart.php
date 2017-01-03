@@ -26,15 +26,6 @@ GSuite Management System
 
 	<script type="text/javascript" language="javascript" src="js/dataTables/jquery.dataTables.js">
 	</script>
-	
-	<script type="text/javascript" language="javascript" class="init">
-	
-
-$(document).ready(function() {
-	$('#matrixDT').DataTable();
-} );
 
 
-	</script>
-    
-   
+

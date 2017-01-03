@@ -93,6 +93,12 @@ GSuite Management System
 
 <script type="text/javascript">
 $(document).ready(function(){
+  $('#matrixDT').dataTable({
+        "iDisplayLength": 100,
+		 "aoColumnDefs": [
+          { 'bSortable': false, 'aTargets': [ 1,3 ] }
+       ]
+    });
   $(".delete_btn").click(function(){
     if (!confirm("Do you want to delete")){
       return false;

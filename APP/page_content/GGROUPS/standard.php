@@ -131,8 +131,12 @@ if ($data) $smart=1;
 
 <script type="text/javascript">
 $(document).ready(function(){
-
-	$('#standard_list').DataTable();
+	$('#standard_list').dataTable({
+        "iDisplayLength": 100,
+		 "aoColumnDefs": [
+          { 'bSortable': false, 'aTargets': [ 1,3 ] }
+       ]
+    });
 
   $("#delete_btn").click(function(){
     if (!confirm("Do you want to delete")){
