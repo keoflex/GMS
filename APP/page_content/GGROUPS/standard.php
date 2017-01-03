@@ -86,10 +86,20 @@ $groups = $results->getGroups();
 
 foreach($groups as $group) {
 
+
+
 $glist[] = array("google_group_id"=>$group->getId(), "name"=>$group->getName(), "smart"=>$smart, "id"=>$id, "email"=>$group->getEmail());
 							$id = $group->getId();
 							$name = $group->getName();
 							$email = $group->getEmail();
+							if($email){
+								$domain_info=explode("@",$email);
+								$domain_name=$domain_info[1];
+							}
+
+
+
+
 
 $query = sprintf("SELECT * FROM smart_groups where google_group_id='%s'", $id);
 $result = mysqltng_query($query);
@@ -108,6 +118,8 @@ if ($data) $smart=1;
 								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-newSTANDARD",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
                                 <input type="hidden" name="smart_google_group_id" value="<?php echo pg_encrypt($id,$pg_encrypt_key,"encode"); ?>">
                                 <input type="hidden" name="google_group_email" value="<?php echo pg_encrypt($email,$pg_encrypt_key,"encode"); ?>">
+                                <input type="hidden" name="google_domain_name" value="<?php echo pg_encrypt($domain_name,$pg_encrypt_key,"encode"); ?>">
+                                <input type="hidden" name="google_group_name" value="<?php echo pg_encrypt($name,$pg_encrypt_key,"encode"); ?>">
                                 <input type="submit" class="btn btn-primary" target="new" Value="Make Smart">
 
                                 </form>

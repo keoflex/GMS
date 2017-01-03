@@ -24,6 +24,8 @@ if(isset($_POST['smart_google_group_id'])){
 
 $google_group_id = pg_encrypt($_POST['smart_google_group_id'],$pg_encrypt_key,"decode");
 $google_group_email = pg_encrypt($_POST['google_group_email'],$pg_encrypt_key,"decode");
+$google_group_name = pg_encrypt($_POST['google_group_name'],$pg_encrypt_key,"decode");
+$google_domain_name = pg_encrypt($_POST['google_domain_name'],$pg_encrypt_key,"decode");
 
 
 $domain_query = "SELECT * FROM google_domains";
@@ -57,7 +59,7 @@ for($i=0;$i<mysqltng_num_rows($result);$i++){
 						<div class="row">
 							 <label class="col-md-2 control-label">Name</label>
 							<div class="col-md-5">
-								 <input name="name" type="text" value="" class="form-control" required>
+								 <input name="name" type="text" value="<?php echo $google_group_name; ?>" class="form-control" required>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -72,7 +74,11 @@ for($i=0;$i<mysqltng_num_rows($result);$i++){
 								foreach ($domains as $domain) {
 								   $domain_name=$domain['name'];
 								   $domain_id=$domain['id'];
-									echo "<option value=$domain_id>$domain_name</option>";
+								    $selected="";
+								   if($google_domain_name==$domain_name){
+									   $selected="SELECTED";
+								   }
+									echo "<option value=$domain_id $selected>$domain_name</option>";
 								}
 								?>
 								</select>
