@@ -136,7 +136,7 @@ for($i=0;$i<mysqltng_num_rows($result);$i++){
 					  <h3>Output</h3>
 					  <pre></pre>
 					</div>
-				<input type="text" id="pattern_condition" name="pattern_condition">
+				<input type="hidden" id="pattern_condition" name="pattern_condition">
 
 
 				<div class="form-group mt20">
