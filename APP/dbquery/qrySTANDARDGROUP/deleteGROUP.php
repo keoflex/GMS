@@ -1,4 +1,5 @@
-<!--
+<?php
+/************************************
 Edited 12/28/2016
 
 GSuite Management System
@@ -16,12 +17,28 @@ GSuite Management System
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+************************************/
 
-CUSTOM HEADER FOR STANDARD GROUPS -->
-<!-- add js or custom css here -->
-  	<link rel="stylesheet" type="text/css" href="css/dataTables/jquery.dataTables.css">
-	<link rel="stylesheet" type="text/css" href="css/dataTables/demo.css">
+$element = "Smart Group";
+$element_function = "Deleted";
+//Define Variables for the form
 
 
-	<script type="text/javascript" language="javascript" src="js/dataTables/jquery.dataTables.js">
-	</script>
+
+$GRP_id = $conn->real_escape_string(pg_encrypt($_POST['group_id'],$pg_encrypt_key,"decode"));
+$GRP_id = str_replace($general_seed,'',$GRP_id);
+
+	//form query
+	$qry = "DELETE from smart_groups where id = ".$GRP_id;
+
+	///echo $qry;
+
+
+	$QUERY_PROCESS = mysqltng_query($qry);
+	//call query process to make sure there are not errors in the query
+	require_once("dbquery/QUERY_PROCESS.php");
+
+
+
+
+?>

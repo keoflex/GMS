@@ -31,42 +31,39 @@ for($i=0;$i<mysqltng_num_rows($result);$i++){
    $data = mysqltng_fetch_assoc($result);
    $domains[] = array("name"=> $data['name'], "id" => $data['id']);
    }
+
+//default domain assign
+$selected_domain_name=$domains[0]['name'];
+if(isset($_POST['google_domain_name'])){
+	$selected_domain_name=$_POST['google_domain_name'];
+}
+//Fetch google groups based on selected domain name
+
+$results=$google->getGoogleGroups($selected_domain_name);
+$groups = $results->getGroups();
 ?>
 
 		<section>
 			<h1>Standard Google Groups</h1>
-
-
-
-
-
-
          <HR>
          <div class="info">
-            Google Domain: <select id=domain>
-<?php
-$i=0;
-foreach ($domains as $domain) {
-   $domain_name=$domain['name'];
-	$selected="";
-	if ($i==0) { $selected="SELECTED"; $selected_domain_name=$domain_name; }
-	echo "<option value=$domain_name $selected>$domain_name</option>";
-	$i++;
-}
-
-   $results=$google->getGoogleGroups($selected_domain_name);
-   $groups = $results->getGroups();
-
-?>
-				</select>
+			  <form action="./?P=<?php echo $_GET['P']; ?>" name ="standard_group" id="standard_group" method="post" enctype="multipart/form-data">
+					Google Domain: <select id="google_domain_name" name="google_domain_name">
+						<?php
+						foreach ($domains as $domain) {
+						   $domain_name=$domain['name'];
+							$selected="";
+						   if($selected_domain_name==$domain_name){
+							   $selected="SELECTED";
+						   }
+							echo "<option value=$domain_name $selected>$domain_name</option>";
+						}
+						?>
+					</select>
+				</form>
          </div>
 
-
-
-
-
-
-			<table id="matrixDT" class="display" cellspacing="0" width="100%">
+			<table id="standard_list" class="display" cellspacing="0" width="100%">
                 <thead>
 					<tr>
 				<th>Group ID</th>
@@ -97,6 +94,7 @@ $glist[] = array("google_group_id"=>$group->getId(), "name"=>$group->getName(), 
 $query = sprintf("SELECT * FROM smart_groups where google_group_id='%s'", $id);
 $result = mysqltng_query($query);
 $data = mysqltng_fetch_assoc($result);
+$smart_group_id=$data['id'];
 $smart=0;
 if ($data) $smart=1;
 
@@ -107,18 +105,18 @@ if ($data) $smart=1;
 								<td><?php echo $email;  ?></td>
 								<td>
 <?php if (!$smart) { ?>
-								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-editSMART",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
-                                <input type="hidden" name="smart_group_id" value="<?php echo pg_encrypt($id,$pg_encrypt_key,"encode"); ?>">
-                                <input type="hidden" name="email" value="<?php echo pg_encrypt($email,$pg_encrypt_key,"encode"); ?>">
+								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-newSTANDARD",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
+                                <input type="hidden" name="smart_google_group_id" value="<?php echo pg_encrypt($id,$pg_encrypt_key,"encode"); ?>">
+                                <input type="hidden" name="google_group_email" value="<?php echo pg_encrypt($email,$pg_encrypt_key,"encode"); ?>">
                                 <input type="submit" class="btn btn-primary" target="new" Value="Make Smart">
-							
+
                                 </form>
                             <?php } else {?>
 
-								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-editSMART",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
-                                <input type="hidden" name="smart_group_id" value="<?php echo pg_encrypt($id,$pg_encrypt_key,"encode"); ?>">
+								<form role="form" action="./?P=<?php echo pg_encrypt("GGROUPS-editSTANDARD",$pg_encrypt_key,"encode") ?>" method="post" enctype="multipart/form-data" style="display: inline-block; margin:0;">
+                                <input type="hidden" name="smart_group_id" value="<?php echo pg_encrypt($smart_group_id,$pg_encrypt_key,"encode"); ?>">
                                 <input type="submit" class="btn btn-primary" target="new" Value="Edit">
-							
+
                                 </form>
                             <?php } ?>
 
@@ -133,10 +131,19 @@ if ($data) $smart=1;
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+	$('#standard_list').DataTable();
+
   $("#delete_btn").click(function(){
     if (!confirm("Do you want to delete")){
       return false;
     }
   });
+
+$("#google_domain_name").on('change', function() {
+	$( "#standard_group" ).submit();
+});
+
+
 });
 </script>
