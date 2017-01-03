@@ -92,10 +92,25 @@ GSuite Management System
 					<div class="clearfix"></div>
 				</div>
 
-			<h4>Smart Group Pattern Condition</h4>
+				<div class="form-group">
+					<div class="row">
+						 <label class="col-md-2 control-label">Help</label>
+						<div class="col-md-10">
+                    For Org Unit Path use a forward slash ("/") to divide the OUs. Format: /&lt;OU1&gt;/&lt;OU2&gt; <br/>
+                    Org Unit Path example value:  /Staff/test <br/>
+                    &nbsp; <br/>
+
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+			<h4>Smart Group Condition</h4>
 				 <div id="builder"></div>
 				 <div class="btn-group">
+<!--
 							  <button class="btn btn-primary parse-json" data-stmt="false" type="button">View Json</button>
+-->
 				</div>
 				<!-- For reference and review sql statement -->
 					<div id="result" class="hide">
@@ -157,6 +172,16 @@ $('#builder').queryBuilder({
   },{
     id: 'manager_email',
     label: 'Manager Email',
+   type: 'string',
+	operators: ['begins_with','ends_with','contains','equal', 'not_equal']
+  }, {
+    id: 'org_unit',
+    label: 'Org Unit Path (OU)',
+   type: 'string',
+	operators: ['begins_with','ends_with','contains','equal', 'not_equal']
+  }, {
+    id: 'cost_center',
+    label: 'Cost Center',
    type: 'string',
 	operators: ['begins_with','ends_with','contains','equal', 'not_equal']
   }, {
