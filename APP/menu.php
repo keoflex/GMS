@@ -27,11 +27,11 @@ GSuite Management System
 }
 </style>
 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
     <button  tabindex="-1" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-    <a  tabindex="-1" class="navbar-brand" href="./"><span style="margin-left:10px;">  
+    <a  tabindex="-1" class="navbar-brand" href="./"><span style="margin-left:10px;">
     <b style="color:#848484; margin-left:10px; font-size: 30px">[</b>
     <b style="color:#3C78F1; margin-left:10px; font-size: 30px">G</b>
     <b style="color:#F70408; margin-left:10px;font-size: 30px">M</b>
@@ -40,11 +40,11 @@ GSuite Management System
     </a> </div>
   <!-- Top Menu Items -->
   <ul class="nav navbar-right top-nav">
-    
+
     <li class="dropdown"> <a  tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
       <ul class="dropdown-menu alert-dropdown">
 
-       
+
         <li> <a  tabindex="-1" href="./index.php?pg=<?php echo pg_encrypt("FUNDS-allocate",$pg_encrypt_key,"encode"); ?>">Un-Allocated <span class="label label-success">$<?php echo $USR_unAllocated; ?></span></a> </li>
         <!--
         <li> <a  tabindex="-1" href="#">Alert Name <span class="label label-success">Alert Badge</span></a> </li>
@@ -72,44 +72,45 @@ GSuite Management System
 if(!isset($folder)){
 	$folder = "";
 }
-?> 
+?>
       <li <?php if($folder == "") echo "class='active'"; ?>> <a  tabindex="-1" href="dashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard </a> </li>
-    
-  <!-- Google Groups-->      
+
+  <!-- Google Groups-->
        <li  <?php if($folder == "GGROUPS") echo "class='active'"; ?>> <a  tabindex="-1" href="javascript:;" data-toggle="collapse" data-target="#googlegroups"><i class="fa fa-fw fa-group"></i>Google Groups<i class="fa fa-fw fa-caret-down"></i></a>
         <ul id="googlegroups" class="<?php if($folder == "GGROUPS") echo "expand"; else echo "collapse"; ?>">
-        
+
 			<li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("GGROUPS-newSMART",$pg_encrypt_key,"encode") ?>">Create Smart Group</a> </li>
 
 			<hr style="width: 70%; border: 1px solid darkorange; ">
 
-			<li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("GGROUPS-smart",$pg_encrypt_key,"encode") ?>">SMART Groups</a> 
+			<li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("GGROUPS-smart",$pg_encrypt_key,"encode") ?>">SMART Groups</a>
 			</li>
 
 			<li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("GGROUPS-standard",$pg_encrypt_key,"encode") ?>">Standard Groups</a> </li>
-         
-          
+			<li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("GGROUPS-domain",$pg_encrypt_key,"encode") ?>">Google Domains</a> </li>
+
+
         </ul>
-      </li>    
- <!-- User Management - non google -->    
+      </li>
+ <!-- User Management - non google -->
       <li  <?php if($folder == "USER") echo "class='active'"; ?>> <a  tabindex="-1" href="javascript:;" data-toggle="collapse" data-target="#UserManager"><i class="fa fa-fw fa-user"></i>Manage Users<i class="fa fa-fw fa-caret-down"></i></a>
         <ul id="UserManager" class="<?php if($folder == "USER") echo "expand"; else echo "collapse"; ?>">
           <li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("USER-newUSER",$pg_encrypt_key,"encode") ?>">Add User</a> </li>
           <li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("USER-list",$pg_encrypt_key,"encode") ?>">User List</a> </li>
- 
 
-    
+
+
     </ul>
-    
-      <!-- Settings -->    
+
+      <!-- Settings -->
       <li  <?php if($folder == "SETTINGS") echo "class='active'"; ?>> <a  tabindex="-1" href="javascript:;" style="color: darkorange;" data-toggle="collapse" data-target="#SettingsManager"><i class="fa fa-fw fa-cog"></i>SETTINGS<i class="fa fa-fw fa-caret-down"></i></a>
         <ul id="SettingsManager" class="<?php if($folder == "SETTINGS") echo "expand"; else echo "collapse"; ?>">
           <li> <a class="sublink" tabindex="-1" href="./index.php?P=<?php echo pg_encrypt("SETTINGS-googleAPI",$pg_encrypt_key,"encode") ?>">Google API</a> </li>
-          
-          
- 
+
+
+
        </ul>
 	   </li>
   </div>
-  <!-- /.navbar-collapse --> 
+  <!-- /.navbar-collapse -->
 </nav>
