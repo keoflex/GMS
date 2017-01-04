@@ -1,8 +1,7 @@
 # GMS
 GSuite Management System
 
-PLEASE NOTE THE CURRENT CODE IS NOT FUNCTIONING WITH THE GOOGLE API.  THIS IS ONLY THE INTERFACE.  WE WILL HAVE THE FULLY FUNCTIONING CODE IN PLACE IN ABOUT A WEEK OR SO.  
-This readme will reflect that update and changes
+This product is functioning in BETA.  The Google API, super admin access, and Database access requires manual adjustment, but we will work in a GUI for this later.
 
 # Donation Button
 
