@@ -21,7 +21,11 @@ elif [ $env == "prod" ]; then
 elif [ $env == "test" ]; then
   Database="cart_test";
 elif [ $env == "dev" ]; then
-  Database="cart_dev";
+  Password='44tel3bm12002'
+  Username='keoflexn_super'
+  Server='localhost'
+  Database="keoflexn_GMT"
+
 else
   echo "error - bad db:  $env"
   exit 3

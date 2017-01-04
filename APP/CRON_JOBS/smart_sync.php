@@ -9,9 +9,9 @@
 
  $env_name = $argv[1];
 
- $server['prod']	= "keoflex.com/SMG";
- $server['dev'] 	= "dev.keoflex.com";
- $server['localhost'] = "localhost";
+ $server['prod']	= "xxx.com";
+ $server['dev'] 	= "keoflex.net";
+ $server['local'] = "localhost";
 
  if(isset($server[$env_name]))
  {
@@ -31,7 +31,7 @@ include "../lib/google.php";
 
 
 
-$keyfile = "/Library/WebServer/Documents/gms/APP/lib/SmartGroupsProject-c4d49f17ff48.p12";
+$keyfile = "../lib/SmartGroupsProject-c4d49f17ff48.p12";
 $google = new Google($keyfile);
 
 

@@ -21,10 +21,22 @@ GSuite Management System
 
 error_reporting(E_ALL ^ E_NOTICE);
 
-$DB_host = 'localhost'; // mysql host
-$DB_login = "gms_dev"; // mysql login
-$DB_password = "gms_dev!"; // mysql password
-$DB_database = "gms_dev"; // the database which can be used by the script.
+if ($_SERVER['SERVER_NAME'] == "localhost") {
+	$DB_host = 'localhost'; // mysql host
+	$DB_login = "gms_dev"; // mysql login
+	$DB_password = "gms_dev!"; // mysql password
+	$DB_database = "gms_dev"; // the database which can be used by the script.
+	}
+else if ($_SERVER['SERVER_NAME'] == "keoflex.net") {
+	$DB_host = 'localhost'; // mysql host
+	$DB_login = "keoflexn_super"; // mysql login
+	$DB_password = "44tel3bm12002"; // mysql password
+	$DB_database = "keoflexn_GMT"; // the database which can be used by the script.
+} 
+else {
+  die("error - unexpected environment");
+  }
+
 //loginSeed
 //this see is used to add to all passwords
 //This is used to see passwords encrypted with sha1().  Simply helps to further encrypt passwords.
