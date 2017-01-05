@@ -21,27 +21,18 @@ GSuite Management System
 
 error_reporting(E_ALL ^ E_NOTICE);
 
-if ($_SERVER['SERVER_NAME'] == "localhost") {
-	$DB_host = 'localhost'; // mysql host
-	$DB_login = "gms_dev"; // mysql login
-	$DB_password = "gms_dev!"; // mysql password
-	$DB_database = "gms_dev"; // the database which can be used by the script.
-	}
-else if ($_SERVER['SERVER_NAME'] == "keoflex.net") {
-	$DB_host = 'localhost'; // mysql host
-	$DB_login = "keoflexn_super"; // mysql login
-	$DB_password = "44tel3bm12002"; // mysql password
-	$DB_database = "keoflexn_GMT"; // the database which can be used by the script.
-} 
-else {
-  die("error - unexpected environment");
-  }
+error_log($config["db_hostname"]);
+error_log($config["db_login"]);
+error_log($config["db_password"]);
+error_log($config["db_database"]);
+$DB_host = $config["db_hostname"]; // mysql host
+$DB_login = $config["db_login"]; // mysql login
+$DB_password = $config["db_password"]; // mysql password
+$DB_database = $config["db_database"]; // the database which can be used by the script.
 
-//loginSeed
-//this see is used to add to all passwords
+//Login Seed - this see is used to add to all passwords
 //This is used to see passwords encrypted with sha1().  Simply helps to further encrypt passwords.
-$loginSeed = '~!@29changeme8Bcd*()'; // this  is the login seed, make it anything you like
-$pg_encrypt_key = "4Trichangeme2kics"; //this  is the page encyryption seed make it anything you like
+$loginSeed = $config["login_seed"]; // this  is the login seed, make it anything you like
 
 //sqli connection functions
 $conn = new mysqli($DB_host,$DB_login,$DB_password,$DB_database);

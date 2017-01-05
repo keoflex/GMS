@@ -20,8 +20,7 @@ GSuite Management System
 ************************************/
 
 
-$keyfile = "lib/SmartGroupsProject-c4d49f17ff48.p12";
-$google = new Google($keyfile);
+$google = new Google();
 
 $query = "SELECT * FROM google_domains";
 $result = mysqltng_query($query);

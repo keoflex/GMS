@@ -48,11 +48,11 @@ date_default_timezone_set('America/Chicago');
 
 //connect to the database config
 
-
-	include "dbcon/config_sqli.php";
-	include "dbcon/php_functions.php";
-include "vendor/google/src/Google/autoload.php";
-include "lib/google.php";
+require_once("config.php"); # this will read the encoded config file
+require_once("dbcon/config_sqli.php");
+require_once("dbcon/php_functions.php");
+require_once("vendor/google/src/Google/autoload.php");
+require_once("lib/google.php");
 
 
 

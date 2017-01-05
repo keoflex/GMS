@@ -7,18 +7,28 @@ class Google{
     protected $service;
     protected $admin_user;
 
-    function __construct($key_file=null){
+    function __construct() {
+		global $config;
 
-        $this->client_id ="10863784932-njoa9tejt7o7fmh5b5or6eqm7ujq2nqi.apps.googleusercontent.commm";
-		$this->service_account_name = "smartgroupsproject@appspot.gserviceaccount.com";
-		if (!$key_file )
-			$this->key_file = "E:\\xampp\htdocs\gmt\app\SmartGroupsProject-c4d49f17ff48.p12";
-		else
-			$this->key_file = $key_file;
+		$this->service_account_name = $config["google_service_account_name"];
+      $this->admin_user = $config["google_admin_user"];
+		$this->key_file = $config["google_service_account_key_file"];
+
 		$this->client = new \Google_Client();
 		$this->service = new \Google_Service_Directory($this->client);
-        $this->client->setApplicationName("Dumas");
-        $this->admin_user ="production@dumasisd.org";
+      $this->client->setApplicationName("Dumas");
+
+/*
+      $this->admin_user = "admin@dumasschools.net";
+		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/dumas-d760939fae36.p12";
+		$this->service_account_name = "jan2017@dumas-1470212397620.iam.gserviceaccount.com";
+      $this->admin_user = "production@dumasisd.org";
+		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/SmartGroupsProject-c4d49f17ff48.p12";
+		$this->service_account_name = "smartgroupsproject@appspot.gserviceaccount.com";
+      $this->admin_user = "admin@dumasschools.net";
+		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/dumas-1253d356d903.p12";
+		$this->service_account_name = "rhc1-888@dumas-1470212397620.iam.gserviceaccount.com";
+*/
     }
 
 	public function getServiceToken(){

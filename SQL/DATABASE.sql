@@ -35,8 +35,9 @@ CREATE TABLE IF NOT EXISTS `google_domains` (
 --
 
 INSERT INTO `google_domains` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(101, 'dumasisd.org', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(102, 'disd.me', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
+(103, 'dumasschools.net', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
+-- (101, 'dumasisd.org', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+-- (102, 'disd.me', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,6 +113,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users` default demo password is 1234
 --
 
+-- where 11111 is the login_seed in the config.ini file
+
 INSERT INTO `users` (`USR_id`, `USR_username`, `USR_fname`, `USR_lname`, `USR_pass`) VALUES
-(1, 'demo', 'keough', 'account', '5c663174f984733e587ac3c11bb835e9ca675598'),
-(2, 'admin', 'admin', 'admin', sha1('admin~!@29changeme8Bcd*()'));
+(1, 'demo', 'keough', 'account',sha1('admin11111')), 
+(2, 'admin', 'admin', 'admin', sha1('admin11111'));

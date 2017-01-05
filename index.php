@@ -21,6 +21,16 @@ GSuite Management System
 -->
 <?php
 
+require_once ("APP/globals.php");  # for $config_file
+
+      if(!is_readable($config_file)){
+        echo "Unable to setup.  File not found: $config_file";
+		  header("Location: setup.php");
+        }
+
+require_once ("APP/config.php"); # this will read the encoded config file
+
+
 ?>
 <!DOCTYPE html>
 <html >
