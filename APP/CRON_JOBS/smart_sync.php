@@ -24,15 +24,15 @@
  }
 
 
-include "../dbcon/config_sqli.php";
-include "../dbcon/php_functions.php";
-include "../vendor/google/src/Google/autoload.php";
-include "../lib/google.php";
+require_once( "../config.php");
+require_once( "../dbcon/config_sqli.php");
+require_once( "../dbcon/php_functions.php");
+require_once( "../vendor/google/src/Google/autoload.php");
+require_once( "../lib/google.php");
 
 
 
-$keyfile = "../lib/SmartGroupsProject-c4d49f17ff48.p12";
-$google = new Google($keyfile);
+$google = new Google();
 
 
 $query = "SELECT * FROM google_domains";
@@ -43,7 +43,7 @@ for($i=0;$i<mysqltng_num_rows($result);$i++){
    $data = mysqltng_fetch_assoc($result);
    $domains[] = array("name"=> $data['name'], "id" => $data['id']);
 	}
-print_r($domains);
+#print_r($domains);
 
 foreach ($domains as $domain) {
    $domain_name = $domain['name'];
@@ -57,16 +57,14 @@ foreach ($domains as $domain) {
 	#print_r($groups);
 
 	$query = sprintf("SELECT * FROM smart_groups where google_domain_id = %d", $domain_id);
-   echo "$query \n";
 	$result2 = mysqltng_query($query);
-  #print_r($sg_list);
    $sg_list=array();
    for($i=0;$i<mysqltng_num_rows($result2);$i++){
 		$data = mysqltng_fetch_assoc($result2);
 		$sg_list[] = array("name"=> $data["name"], "google_group_id" => $data["google_group_id"], "pattern_condition"=> $data["pattern_condition"]);
 		}
 
-	print_r($sg_list);
+	#print_r($sg_list);
 
   $next = null;
   $page=1;
@@ -120,8 +118,8 @@ else {
 
 			 echo "  type: $employee_type title: $employee_title costcenter: $costcenter mgremail: $manager_email dept: $department \n";
 
-			 if (count($organizations) > 0) print_r($organizations);
-			 if (count($relations) > 0) print_r($relations);
+			 #if (count($organizations) > 0) print_r($organizations);
+			 #if (count($relations) > 0) print_r($relations);
 
 			 $suspended=0;
 			 if ($user['suspended'] == 1)
@@ -135,7 +133,7 @@ else {
 				  $match=0;
 				  $json = $sg['pattern_condition'];
 				  $query = json_decode(utf8_encode($json), true);
-				  print_r($query);
+				  #print_r($query);
 				  # this function assumes that these variables exist: $email_value, $department, $costcenter, $manager_email, $employee_type, $employee_title
 				  $query_str = condition_parser($query);
 
