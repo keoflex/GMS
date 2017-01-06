@@ -2,7 +2,7 @@
 
 require_once("globals.php"); # for $config_file and $pg_encrypt_key
 require_once("dbcon/php_functions.php");  # for pg_encrypt();
-
+$config_file = "$ETC_DIR/config.ini";
 if (!file_exists($config_file)) {
   die("Error - no config file: $config_file   go here to create it: <a href='../index.php'>Setup</a>");
   }

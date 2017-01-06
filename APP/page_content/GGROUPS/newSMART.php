@@ -82,7 +82,7 @@ for($i=0;$i<mysqltng_num_rows($result);$i++){
 					<div class="row">
 						 <label class="col-md-2 control-label">Smart Group Email</label>
 						<div class="col-md-5">
-							<input name="email" type="text" value="" email class="form-control">
+							<input name="email" type="text" value="" id="email" class="form-control">
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -239,16 +239,41 @@ $('.parse-sql').on('click', function() {
 
 
 $('#submit').on('click', function() {
+   var email = $('#email').val();
+   var domain = $('#google_domain_id option:selected').text();
+
+   var pos = email.indexOf(domain);
+   if (pos == -1) {
+		alert("Error - the smart group email address must have the same domain name as the google domain selected");
+      return false;
+		}
+   var pos = email.indexOf("@");
+   if (pos == -1) {
+		alert("Error - the smart group email address must be a valid email format");
+      return false;
+		}
+   var substr = email.substring(pos+1);
+   if (substr != domain) {
+		alert("Error - the smart group email address must have the same domain name as the google domain selected");
+		return false;
+		}
+
+
+
    //var res = $('#builder').queryBuilder('getSQL', $(this).data('stmt'), false);
    //var sql=res.sql;
    var res =  $('#builder').queryBuilder('getRules',{get_flags: true});
    if($.isEmptyObject(res)){
-	alert("Problem in pattern type selection");
+	alert("Problem in smart group condition");
 	return false;
    }
    var json_string = JSON.stringify(res);
    $('#pattern_condition').val(json_string);
+
+   
 });
+
+
 });
     </script>
 

@@ -69,6 +69,7 @@ if(isset($_GET['logout'])){
 	if(isset($_POST['signin-password'])){
 		//take posted password and convert to sha1
 		//.$loginSeed adds a secret seed to the password this can be found in the ./dbcon/config.php
+		$loginSeed = $config['login_seed'];
 		$password = sha1($conn->real_escape_string($_POST['signin-password'].$loginSeed));
 		
 		//check if there is a user with such login and password
@@ -116,6 +117,8 @@ if(isset($_GET['logout'])){
 			//everything checks out so include the dashboard_main
 			//dashboard_main is the primary content for the site.  All elements will join into that for every page using various
 			//includes statements
+error_log("============ call dash ==============");
+error_log(print_r($config,true));
 			$user_data = @mysql_fetch_array($res);
 			include "dashboard.php";
 			//include "dash2.php";

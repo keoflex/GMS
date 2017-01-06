@@ -1,3 +1,14 @@
+<?php
+# this must be the first thing in this file because we might need to call header()
+require_once ("APP/globals.php");  # for $ETC_DIR
+$config_file = "$ETC_DIR/config.ini";
+if(!is_readable($config_file)){
+	header("Location: setup.php");
+	}
+require_once ("APP/config.php"); # this will read the encoded config file
+
+
+?>
 <!--
 
 *** Date modified 12-29-2016
@@ -19,19 +30,6 @@ GSuite Management System
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<?php
-
-require_once ("APP/globals.php");  # for $config_file
-
-      if(!is_readable($config_file)){
-        echo "Unable to setup.  File not found: $config_file";
-		  header("Location: setup.php");
-        }
-
-require_once ("APP/config.php"); # this will read the encoded config file
-
-
-?>
 <!DOCTYPE html>
 <html >
   <head>
