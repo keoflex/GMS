@@ -11,4 +11,3 @@ $encoded_configs = file_get_contents($config_file);
 $decoded_configs = pg_encrypt($encoded_configs,$pg_encrypt_key,"decode");
 $config = parse_ini_string($decoded_configs, true);
 
-$config['google_service_account_key_file'] = '/Library/WebServer/Documents/etc/dumas-d760939fae36.p12';
