@@ -26,9 +26,9 @@ class Google{
 		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/SmartGroupsProject-c4d49f17ff48.p12";
 		$this->service_account_name = "smartgroupsproject@appspot.gserviceaccount.com";
       $this->admin_user = "admin@dumasschools.net";
-		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/dumas-1253d356d903.p12";
 		$this->service_account_name = "rhc1-888@dumas-1470212397620.iam.gserviceaccount.com";
 */
+		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/dumas-1253d356d903.p12";
     }
 
 	public function getServiceToken(){

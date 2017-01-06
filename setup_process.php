@@ -36,7 +36,8 @@ error_log($name);
 $tmp_name = $f["tmp_name"];
 error_log($tmp_name);
 $uploads_dir="../etc";
-$key_file_path = "$uploads_dir/$name";
+$key_file_path = "$ETC_DIR/$name";
+
 $status = move_uploaded_file($tmp_name, $key_file_path);
 error_log("status: $status");
 if ($status != 1)  {
@@ -75,7 +76,7 @@ error_log($config_data);
 include "APP/dbcon/php_functions.php"; # needed for pg_encrypt()
 $cfg = pg_encrypt($config_data,$pg_encrypt_key,"encode");
 
-
+$config_file=$ETC_DIR. "/config.ini";
 $fp = fopen($config_file,"w");
 if (!$fp)  {
 	throw new Exception("Error - failed to create the config.ini file ");

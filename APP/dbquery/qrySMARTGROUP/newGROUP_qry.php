@@ -50,7 +50,7 @@ if (!$GRP_google_group_id || $GRP_google_group_id=="") {
 	$name = $GRP_name;
 	$desc = $GRP_description;
 	$results=$google->addGroup($email, $name, $desc);
-	var_dump($results);
+	#var_dump($results);
 	$google_group_id = $results->getId();
 	}
 else {

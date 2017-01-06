@@ -1,3 +1,10 @@
+<?php
+require_once ("APP/globals.php");  # for $ETC_DIR
+$config_file = "$ETC_DIR/config.ini";
+if(file_exists($config_file)){
+   header("Location: index.php");
+   }
+?>
 <!--
 
 *** Date modified 12-29-2016
@@ -30,10 +37,23 @@ GSuite Management System
    <script src="APP/js/jquery.validate.js"></script>
     <title>Setup Form</title>
     
+
+    <!-- Bootstrap Core CSS -->
+    <link href="APP/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="APP/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="APP/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="APP/ASSETS/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
     
     
     
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="css/style.css">
 
     
     
@@ -59,57 +79,98 @@ GSuite Management System
 
 <div id="notes">
 The system does not have a config file. Use the form to create a config file.  Then log in.
+<br/>
 </div>
 
+<div class="panel-body">
+ <div class="form-group">
 			<form id="setup_form" method="post" action="setup_process.php" enctype="multipart/form-data" method="POST">
-				 <div class="setup-form">
 
-						<div class="control-group">
-							<label class="setup-field login-field-icon fui-lock" for="login-pass">Database Host</label>
+			<div class="control-group">
+    			<div class="row">
+							<label class="col-md-3 control-label">Database Host</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="localhost" name="db_host" placeholder="DB host" id="db_host">
-					  	</div>
+						</div>
+					</div>
+			</div>
 						<div class="control-group">
-							<label class="setup-field login-field-icon fui-lock" for="login-pass">Database Name</label>
+    						<div class="row">
+							<label class="col-md-3 control-label">Database Name</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="gms_dev" name="db_name" placeholder="DB name" id="db_name">
 					  	</div>
+					  	</div>
+					  	</div>
 					  	<div class="control-group">
-							<label class="login-field-icon fui-user" for="login-name">Database User</label>
+    						<div class="row">
+							<label class="col-md-3 control-label">Database User</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="gms_dev" name="db_user" placeholder="username" id="db_user">
 						</div>
+						</div>
+						</div>
 					  	<div class="control-group">
-							<label class="login-field-icon fui-user" for="login-name">Database Password</label>
+    						<div class="row">
+							<label class="col-md-3 control-label">Database Password</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="gms_dev!" name="db_pw" placeholder="password" id="db_password">
+						</div>
+						</div>
 						</div>
 
 						<div class="control-group">
-							<label class="setup-field login-field-icon fui-lock" for="login-pass">Login Seed</label>
+    						<div class="row">
+							<label class="col-md-3 control-label">Login Seed</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="11111" name="login_seed" placeholder="any random value" id="login_seed">
+						</div>
+						</div>
 					  	</div>
 <!--
 						<div class="control-group">
-							<label class="setup-field login-field-icon fui-lock" for="login-pass">Encrypt Key</label>
+    						<div class="row">
+							<label class="" for="login-pass">Encrypt Key</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="4Txy1m2kics" name="encrypt_key" placeholder="any random value" id="encrypt_key">
+						</div>
+						</div>
 					  	</div>
 -->
 
 					  	<div class="control-group">
-							<label class="login-field-icon fui-user" for="login-name">Google Admin User Name</label>
+    						<div class="row">
+							<label class="col-md-3 control-label">Google Admin User Name</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="admin@dumasschools.net" name="google_admin_user" placeholder="admin@domain.com" id="google_admin_user">
 						</div>
+						</div>
+						</div>
 
 					  	<div class="control-group">
-							<label class="login-field-icon fui-user" for="login-name">Google Service Account Name</label>
+    						<div class="row">
+							<label class="col-md-3 control-label">Google Service Account Name</label>
+                  <div class="col-md-5">
 							<input type="text" class="setup-field login-field" value="rhc1-888@dumas-1470212397620.iam.gserviceaccount.com" name="google_service_account_name" placeholder="name@project-1470212397620.iam.gserviceaccount.com" id="google_service_account_name">
 						</div>
+						</div>
+						</div>
 
 					  	<div class="control-group">
-							<label class="login-field-icon fui-user" for="login-name">Google Service Account Key File</label>
+    						<div class="row">
+							<label class="col-md-3 control-label">Google Service Account Key File</label>
+                  <div class="col-md-5">
 							<input type="file" class="setup-field login-field" accept=".json, .p12" name="google_service_account_key_file"  id="google_service_account_key_file">
 						</div>
+						</div>
+						</div>
  
+    						<div class="row">
 					  <input type="submit" class="btn btn-primary btn-large btn-block" value="Submit" />
-				 </div> 
+						</div>
 			</form
+		</div>
+		</div>
 		</div>
 	</div>
 </body>
@@ -122,6 +183,11 @@ $(document).ready(function() {
 
     // process the form
     $('form').submit(function(event) {
+
+        var valid = $('#setup_form').valid();
+        if (!valid) return;
+
+
 
 			var jForm = new FormData();
 			jForm.append("db_host", $('input[name=db_host]').val());
@@ -184,7 +250,7 @@ $(document).ready(function() {
                   required: true
                 },
                 login_seed: {
-                  minlength: 6,
+                  minlength: 5,
                   required: true
                 },
                 google_admin_user: {
