@@ -185,7 +185,10 @@ $(document).ready(function() {
     $('form').submit(function(event) {
 
         var valid = $('#setup_form').valid();
-        if (!valid) return;
+        if (!valid) {
+            alert("form errors");
+                return;
+            }
 
 
 
@@ -208,6 +211,7 @@ $(document).ready(function() {
 				mimeType: "multipart/form-data",
             cache: false,
             contentType: false,
+            error: function(xhr, error){ alert("Error - " + xhr.responseText); },
             processData: false,
             dataType    : 'json' // what type of data do we expect back from the server
         })
