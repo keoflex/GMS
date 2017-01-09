@@ -79,6 +79,7 @@ foreach ($domains as $domain) {
 		foreach($users as $user){
 			 $email_value = $user['primaryEmail'];
 
+/*  for testing 
 if ($env_name == "dev") {
 	if ($email_value != "christyvol@dumasschools.net" && $email_value != "joeparttime@dumasschools.net" && $email_value != "joeteacher@dumasschools.net" ) continue;
 	}
@@ -86,6 +87,7 @@ else {
 	if ($email_value != "28jimtest@dumasisd.org" && $email_value != "28joetest@dumasisd.org" && $email_value != "28jantest@dumasisd.org" &&
 		 $email_value != "28jimtest@disd.me" && $email_value != "28joetest@disd.me" && $email_value != "28jantest@disd.me") continue;
 	}
+*/
 			echo  $email_value . "\n";
 
 			 #print_r($user);
