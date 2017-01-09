@@ -21,10 +21,10 @@ GSuite Management System
 
 error_reporting(E_ALL ^ E_NOTICE);
 
-error_log($config["db_hostname"]);
-error_log($config["db_login"]);
-error_log($config["db_password"]);
-error_log($config["db_database"]);
+#error_log($config["db_hostname"]);
+#error_log($config["db_login"]);
+#error_log($config["db_password"]);
+#error_log($config["db_database"]);
 $DB_host = $config["db_hostname"]; // mysql host
 $DB_login = $config["db_login"]; // mysql login
 $DB_password = $config["db_password"]; // mysql password

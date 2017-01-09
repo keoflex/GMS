@@ -48,7 +48,17 @@ date_default_timezone_set('America/Chicago');
 
 //connect to the database config
 
-require_once("config.php"); # this will read the encoded config file
+require_once("globals.php");  # for pg_encrypt_key
+require_once("dbcon/php_functions.php");  # for pg_encrypt();
+$config_file="../../gms_etc/config.ini";
+if (!file_exists($config_file)) {
+  die("Error - no config file: $config_file   go here to create it: <a href='../setup.php'>Setup</a>");
+  }
+$encoded_configs = file_get_contents($config_file);
+$decoded_configs = pg_encrypt($encoded_configs,$pg_encrypt_key,"decode");
+$config = parse_ini_string($decoded_configs, true);
+
+
 require_once("dbcon/config_sqli.php");
 require_once("dbcon/php_functions.php");
 require_once("vendor/google/src/Google/autoload.php");
@@ -68,7 +78,7 @@ if(isset($_GET['logout'])){
 }else{
 	if(isset($_POST['signin-password'])){
 		//take posted password and convert to sha1
-		//.$loginSeed adds a secret seed to the password this can be found in the ./dbcon/config.php
+		//.$loginSeed adds a secret seed to the password this can be found in the config.ini
 		$loginSeed = $config['login_seed'];
 		$password = sha1($conn->real_escape_string($_POST['signin-password'].$loginSeed));
 		
@@ -117,8 +127,6 @@ if(isset($_GET['logout'])){
 			//everything checks out so include the dashboard_main
 			//dashboard_main is the primary content for the site.  All elements will join into that for every page using various
 			//includes statements
-error_log("============ call dash ==============");
-error_log(print_r($config,true));
 			$user_data = @mysql_fetch_array($res);
 			include "dashboard.php";
 			//include "dash2.php";

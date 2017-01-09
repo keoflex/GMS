@@ -1,11 +1,16 @@
 <?php
 # this must be the first thing in this file because we might need to call header()
-require_once ("APP/globals.php");  # for $ETC_DIR
-$config_file = "$ETC_DIR/config.ini";
+require_once ("APP/globals.php");  # for $pg_encrypt_key
+$config_file = "../gms_etc/config.ini";
 if(!is_readable($config_file)){
 	header("Location: setup.php");
 	}
-require_once ("APP/config.php"); # this will read the encoded config file
+
+require_once("APP/dbcon/php_functions.php");  # for pg_encrypt();
+$encoded_configs = file_get_contents($config_file);
+$decoded_configs = pg_encrypt($encoded_configs,$pg_encrypt_key,"decode");
+$config = parse_ini_string($decoded_configs, true);
+
 
 
 ?>

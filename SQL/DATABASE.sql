@@ -109,12 +109,3 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `USR_username` (`USR_username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
---
--- Dumping data for table `users` default demo password is 1234
---
-
--- where 11111 is the login_seed in the config.ini file
-
-INSERT INTO `users` (`USR_id`, `USR_username`, `USR_fname`, `USR_lname`, `USR_pass`) VALUES
-(1, 'demo', 'keough', 'account',sha1('admin11111')), 
-(2, 'admin', 'admin', 'admin', sha1('admin11111'));

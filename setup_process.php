@@ -4,9 +4,6 @@ require_once("APP/globals.php");
 
 try {
 
-error_log("hello");
-error_log(print_r($_POST,true));
-error_log(print_r($_FILES,true));
 
 $db_host = $_POST["db_host"];
 $db_name = $_POST["db_name"];
@@ -23,23 +20,17 @@ error_log("$db_name $db_user $db_pw $google_admin_user $google_service_account_n
 
 $allowed = array("json", "p12");
  $filename=$f['name'];
-error_log($filename);
  $tmp = explode('.', $filename);
  $extension = strtolower(end($tmp));
-error_log($extension);
  if(in_array($extension, $allowed) === false){
     throw new Exception("Error - invalid file extension: $extension  Must be one of .json or .p12");
  }
 
 $name = basename($f["name"]);
-error_log($name);
 $tmp_name = $f["tmp_name"];
-error_log($tmp_name);
-$uploads_dir="../etc";
-$key_file_path = "$ETC_DIR/$name";
+$key_file_path = "../gms_etc/$name";
 
 $status = move_uploaded_file($tmp_name, $key_file_path);
-error_log("status: $status");
 if ($status != 1)  {
 	throw new Exception("Error - key file upload failed");
 	}
@@ -55,9 +46,16 @@ $conn = new mysqli($DB_host,$DB_login,$DB_password,$DB_database);
 if (mysqli_connect_errno()) {
     throw new Exception("Error - unable to connect to the database with the information provided. $DB_host, $DB_login, $DB_databse with a password of: $DB_password   Please try again.");
 }
-mysqli_close($conn);
 
 $loginSeed = $login_seed;
+
+   $USR_pass = sha1("admin".$loginSeed);
+   $qry = "insert into users(USR_fname, USR_lname, USR_username, USR_pass) values('admin','admin','admin','".$USR_pass."')";
+   $QUERY_PROCESS = $conn->query($qry);
+   //call query process to make sure there are not errors in the query
+   require_once("APP/dbquery/QUERY_PROCESS.php");
+
+mysqli_close($conn);
 
 
 $config_data = "
@@ -71,12 +69,11 @@ google_admin_user='$google_admin_user'
 google_service_account_name='$google_service_account_name'
 google_service_account_key_file='$key_file_path'
 ";
-error_log($config_data);
 
 include "APP/dbcon/php_functions.php"; # needed for pg_encrypt()
 $cfg = pg_encrypt($config_data,$pg_encrypt_key,"encode");
 
-$config_file=$ETC_DIR. "/config.ini";
+$config_file="../gms_etc/config.ini";
 $fp = fopen($config_file,"w");
 if (!$fp)  {
 	throw new Exception("Error - failed to create the config.ini file ");
@@ -85,7 +82,6 @@ fwrite($fp, $cfg);
 fclose($fp);
 
 $out = pg_encrypt($cfg,$pg_encrypt_key,"decode");
-error_log($out);
 
   $data = array("status"=> "success");
 

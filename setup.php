@@ -1,9 +1,14 @@
 <?php
-require_once ("APP/globals.php");  # for $ETC_DIR
-$config_file = "$ETC_DIR/config.ini";
+$config_dir = "../gms_etc";
+if(!file_exists($config_dir)){
+	echo "Error - directory does not exist.  '$config_dir'  You must create this directory and make it WRITABLE. \n";
+   exit;
+   }
+$config_file = "../gms_etc/config.ini";
 if(file_exists($config_file)){
    header("Location: index.php");
    }
+
 ?>
 <!--
 
@@ -114,7 +119,7 @@ The system does not have a config file. Use the form to create a config file.  T
     						<div class="row">
 							<label class="col-md-3 control-label">Database Password</label>
                   <div class="col-md-5">
-							<input type="text" class="setup-field login-field" value="gms_dev!" name="db_pw" placeholder="password" id="db_password">
+							<input type="password" class="setup-field login-field" value="gms_dev!" name="db_pw" placeholder="password" id="db_password">
 						</div>
 						</div>
 						</div>
