@@ -1,34 +1,20 @@
 <?php
 
- $usage="usage: $argv[0] <env> where <env> is one of dev or prod";
- if ($argc < 2) {
- echo  "ERROR: invalid usage \n";
- echo "$usage \n";
- exit(2);
- }
-
- $env_name = $argv[1];
-
- $server['prod']	= "xxx.com";
- $server['dev'] 	= "keoflex.net";
- $server['local'] = "localhost";
-
- if(isset($server[$env_name]))
- {
- 	$_SERVER['SERVER_NAME'] = $server[$env_name];
- }
- else
- {
-	 echo "error - bad env \n";
-	 exit(3);
- }
+require_once("../APP/globals.php");  # for pg_encrypt_key
+require_once("../APP/dbcon/php_functions.php");  # for pg_encrypt();
+$config_file="../../gms_etc/config.ini";
+if (!file_exists($config_file)) {
+  die("Error - no config file: $config_file   go here to create it: <a href='../setup.php'>Setup</a>");
+  }
+$encoded_configs = file_get_contents($config_file);
+$decoded_configs = pg_encrypt($encoded_configs,$pg_encrypt_key,"decode");
+$config = parse_ini_string($decoded_configs, true);
 
 
-require_once( "../config.php");
-require_once( "../dbcon/config_sqli.php");
-require_once( "../dbcon/php_functions.php");
-require_once( "../vendor/google/src/Google/autoload.php");
-require_once( "../lib/google.php");
+require_once( "../APP/dbcon/config_sqli.php");
+require_once( "../APP/dbcon/php_functions.php");
+require_once( "../APP/vendor/google/src/Google/autoload.php");
+require_once( "../APP/lib/google.php");
 
 
 
@@ -79,6 +65,7 @@ foreach ($domains as $domain) {
 		foreach($users as $user){
 			 $email_value = $user['primaryEmail'];
 
+/*  for testing 
 if ($env_name == "dev") {
 	if ($email_value != "christyvol@dumasschools.net" && $email_value != "joeparttime@dumasschools.net" && $email_value != "joeteacher@dumasschools.net" ) continue;
 	}
@@ -86,6 +73,7 @@ else {
 	if ($email_value != "28jimtest@dumasisd.org" && $email_value != "28joetest@dumasisd.org" && $email_value != "28jantest@dumasisd.org" &&
 		 $email_value != "28jimtest@disd.me" && $email_value != "28joetest@disd.me" && $email_value != "28jantest@disd.me") continue;
 	}
+*/
 			echo  $email_value . "\n";
 
 			 #print_r($user);
