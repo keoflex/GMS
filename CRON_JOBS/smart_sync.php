@@ -1,28 +1,5 @@
 <?php
 
- $usage="usage: $argv[0] <env> where <env> is one of dev or prod";
- if ($argc < 2) {
- echo  "ERROR: invalid usage \n";
- echo "$usage \n";
- exit(2);
- }
-
- $env_name = $argv[1];
-
- $server['prod']	= "xxx.com";
- $server['dev'] 	= "keoflex.net";
- $server['local'] = "localhost";
-
- if(isset($server[$env_name]))
- {
- 	$_SERVER['SERVER_NAME'] = $server[$env_name];
- }
- else
- {
-	 echo "error - bad env \n";
-	 exit(3);
- }
-
 require_once("../APP/globals.php");  # for pg_encrypt_key
 require_once("../APP/dbcon/php_functions.php");  # for pg_encrypt();
 $config_file="../../gms_etc/config.ini";
