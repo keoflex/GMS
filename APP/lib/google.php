@@ -13,22 +13,13 @@ class Google{
 		$this->service_account_name = $config["google_service_account_name"];
       $this->admin_user = $config["google_admin_user"];
 		$this->key_file = $config["google_service_account_key_file"];
-
 		$this->client = new \Google_Client();
 		$this->service = new \Google_Service_Directory($this->client);
-      $this->client->setApplicationName("Dumas");
 
-/*
-      $this->admin_user = "admin@dumasschools.net";
-		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/dumas-d760939fae36.p12";
-		$this->service_account_name = "jan2017@dumas-1470212397620.iam.gserviceaccount.com";
-      $this->admin_user = "production@dumasisd.org";
-		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/SmartGroupsProject-c4d49f17ff48.p12";
-		$this->service_account_name = "smartgroupsproject@appspot.gserviceaccount.com";
-      $this->admin_user = "admin@dumasschools.net";
-		$this->service_account_name = "rhc1-888@dumas-1470212397620.iam.gserviceaccount.com";
-*/
-		$this->key_file = "/Library/WebServer/Documents/gms/APP/lib/dumas-1253d356d903.p12";
+		error_log("key file: " . $this->key_file);
+		error_log("service account name: " . $this->service_account_name);
+		error_log("admin user: " . $this->admin_user);
+
     }
 
 	public function getServiceToken(){

@@ -58,6 +58,7 @@ $loginSeed = $login_seed;
 mysqli_close($conn);
 
 
+$config_key_file_path = "../../gms_etc/$name";
 $config_data = "
 ; system config file
 db_hostname='$db_host'
@@ -67,7 +68,7 @@ db_password='$db_pw'
 login_seed='$login_seed'
 google_admin_user='$google_admin_user'
 google_service_account_name='$google_service_account_name'
-google_service_account_key_file='$key_file_path'
+google_service_account_key_file='$config_key_file_path'
 ";
 
 include "APP/dbcon/php_functions.php"; # needed for pg_encrypt()

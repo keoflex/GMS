@@ -83,7 +83,9 @@ GSuite Management System
 
 
 <div id="notes">
-The system does not have a config file. Use the form to create a config file.  Then log in.
+Before using this page, make sure you have the mysql database created and intialized with the schema file located in APP/SQL/DATABASE.sql. <br/>
+The system does not have a config file (config.ini). Use the form to create a config file.  Then log in.<br/>
+Use this document to help you with the setup:  <a target=_blank href="setup.pdf">Google Setup and Configuration</a>
 <br/>
 </div>
 
