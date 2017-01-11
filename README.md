@@ -37,5 +37,7 @@ LOGS=/home/site/public_html/hosting/gms_logs
 SHELL=/bin/bash
 
  [MIN] [HR] [DAY] [MONTH] [DAY OF WEEK] 
+ 
 -- run every 4 hours 
+
 0 */4 * * * cd $GMS/CRON_JOBS; php smart_sync.php dev >> $LOGS/cron.log 2>&1
