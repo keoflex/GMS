@@ -121,7 +121,7 @@ if(isset($_GET['logout'])){
 			//everything checks out so include the dashboard_main
 			//dashboard_main is the primary content for the site.  All elements will join into that for every page using various
 			//includes statements
-			$user_data = @mysql_fetch_array($res);
+			//// $user_data = @mysql_fetch_array($res); //OLD reference to depreciated mysql statement
 			include "dashboard.php";
 			//include "dash2.php";
 		}
