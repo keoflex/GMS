@@ -23,3 +23,23 @@ https://console.developers.google.com/projectselector/apis
 
 Once you build your service account you will need to download the .p12 file and upload that to GMS -- again more documentation coming on that
 
+# Creating a Cron Job
+This is only an example, but you will need to create a Cron Job to run the /CRON_JOBS/smart_sync.php file.  Again the following is only an example of how to do it on a linux machine
+
+ $  vi crontab
+ 
+```bash
+# START
+MAILTO="Youremail@domain.com"
+GMS=/home/site/public_html/hosting/gms
+LOGS=/home/site/public_html/hosting/gms_logs
+SHELL=/bin/bash
+
+# [MIN] [HR] [DAY] [MONTH] [DAY OF WEEK] 
+# -- run every 4 hours 
+
+0 */4 * * * cd $GMS/CRON_JOBS; php smart_sync.php dev >> $LOGS/cron.log 2>&1
+# END
+```
+
+ $  crontab -u user ~/crontab

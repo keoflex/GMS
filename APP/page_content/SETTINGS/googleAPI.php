@@ -43,7 +43,7 @@ for($i=0;$i<mysqltng_num_rows($get_goog_res);$i++){
 
  <section>
   <h1>Google API stored info</h1>
- 
+	 <h2 style="color:red">We have modifeid how this is handled.  We will update this section soon to decrypt the INI file and allow you to edit it</h2>
   <hr>
   <div class="info">
     <p>&nbsp;</p>

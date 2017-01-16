@@ -23,9 +23,7 @@ if [ $env == "local" ]; then
   Server='localhost'
   Database="gms_dev";
 elif [ $env == "prod" ]; then
-  Database="cart_prod";
-elif [ $env == "test" ]; then
-  Database="cart_test";
+  Database="sgm_prod";
 elif [ $env == "dev" ]; then
   Password='44tel3bm12002'
   Username='keoflexn_super'
