@@ -182,7 +182,9 @@ else {
                     case "begins_with":
                     case "ends_with":
                     case "contains":
-                        $statement .= $rule['operator'] . "($" . $f . ", '" . $rule['value'] . "')"; 
+                        # escape forward slashes for prep for preg_match
+                        $v = str_replace( '/', '\/', $rule['value'] );
+                        $statement .= $rule['operator'] . "($" . $f . ", '" . $v . "')"; 
                         break;
                     case "equal":
                         $statement .= "$". $f . " == '" . $rule['value'] . "'"; 
